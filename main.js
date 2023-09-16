@@ -11,6 +11,8 @@ function createDateArray(startDateInput) {
     // Calculate the end date as 3 weeks from the current date
     const endDate = new Date();
     endDate.setDate(currentDate.getDate() + 21);  // Adding 21 days (3 weeks)
+    //porta fuori da usare come limite
+    endingDate = endDate;
 
     const dateArray = [];
     let currentDateObj;
@@ -69,8 +71,8 @@ function createMealPlan(calendar, mealPlan) {
 
 
 function init() {
-    calendar = createDateArray('2023-09-11', jsonData);
-    let mealPlan = createMealPlan(calendar, jsonData);
+    calendar = createDateArray(startingDate, jsonData);
+    mealPlan = createMealPlan(calendar, jsonData);
     createPage(current_display_date, mealPlan)
 }
 
@@ -85,10 +87,8 @@ function formatDateToYYYYMMDD(date) {
 
 
 function createPage(date, plan) {
-    console.log(date)
     let chosenDay = plan.find((day) => formatDateToYYYYMMDD(day.date) == formatDateToYYYYMMDD(date));
-    console.log(chosenDay)
-    date_display.innerText = `${chosenDay.date.toLocaleDateString('it-it', { weekday:"long", year:"numeric", month:"long", day:"numeric"}).toUpperCase()}`
+    date_display.innerText = `${chosenDay.date.toLocaleDateString('it-it', { weekday: "long", year: "numeric", month: "long", day: "numeric" }).toUpperCase()}`
     brk_display.innerText = `${chosenDay.mealPlan.meals[0].item}`
     snack_m_display.innerText = `${chosenDay.mealPlan.meals[1].item}`
     lunch_display.innerText = `${chosenDay.mealPlan.meals[2].item}`
@@ -97,10 +97,36 @@ function createPage(date, plan) {
 
 }
 
+function previousDay() {
+    current_display_date.setDate(current_display_date.getDate() - 1);
+    if(current_display_date < startingDate) {
+        alert('Non puoi andare piú indietro di cosí')
+        return;
+    }
+    createPage(current_display_date, mealPlan)
+}
+function nextDay() {
+    current_display_date.setDate(current_display_date.getDate() + 1);
+    if(current_display_date > endingDate) {
+        alert('Non puoi andare piú avanti di cosí')
+        return;
+    }
+    createPage(current_display_date, mealPlan)
+}
+
+function toDay() {
+    today = new Date();
+    current_display_date = today;
+    createPage(current_display_date, mealPlan)
+}
+
 let jsonData = null;
 let calendar = [];
 let mealPlan = [];
 
+const prev_date = document.getElementById('prev-day');
+const next_date = document.getElementById('next-day');
+const today_date = document.getElementById('today');
 const date_display = document.getElementById('date');
 const brk_display = document.getElementById('brk');
 const snack_m_display = document.getElementById('snack_m');
@@ -109,8 +135,15 @@ const snack_a_display = document.getElementById('snack_a');
 const dinner_display = document.getElementById('dinner');
 
 let current_display_date;
-const today = new Date();
+let today = new Date();
 current_display_date = today;
+
+const startingDate = new Date('2023-09-11');
+let endingDate;
+
+prev_date.addEventListener('click', previousDay);
+next_date.addEventListener('click', nextDay);
+today_date.addEventListener('click', toDay);
 
 // Load JSON data when the page loads
 

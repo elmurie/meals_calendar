@@ -1,0 +1,46 @@
+/* Reset all margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Optional: Set a baseline for typographic elements */
+body,
+html,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Arial, sans-serif;
+}
+
+/* Optional: Remove list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Optional: Remove default anchor styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Optional: Remove outline from links and other focusable elements */
+a:focus,
+button:focus {
+    outline: none;
+}
+
+.header {
+    background-color: #ffc107;
+
+}
+
+.ctas > .lx {
+    width: 50%;
+}
