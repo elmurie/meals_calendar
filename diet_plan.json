@@ -1,0 +1,797 @@
+{
+    "id": "Piano Balsimelli 20210802",
+    "weeks": [
+        {
+            "week_id": 1,
+            "days": [
+                {
+                    "weekday_id": 1,
+                    "weekday_label": "Monday",
+                    "weekday_label_it": "Lunedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "2 fette di pane con bresaola o prosciutto crudo dolce oppure 1 fetta di ananas mango o albicocche"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt naturale o con frutta a pezzi no muller 5 mandorle e 3 noci"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "80 gr di riso o pasta freddo con verdure ben lavate (pomodori basilico, mais, olive nere, 2 noci, tonno sott’olio, sfoglie di mele aggiungi quello che preferisci..). Piatto unico oppure altro condimento. Frutta a scelta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "2 tipi di frutta"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Legumi a scelta consiglio fagioli o ceci con tonno. Frutta a piacere"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 2,
+                    "weekday_label": "Tuesday",
+                    "weekday_label_it": "Martedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Come da abitudine"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt naturale, 4 mandorle, 2 albicocche disidratate"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "90 gr di linguine al pesto e pomodori pachino oppure verdure miste oppure altro condimento. Misto di verdure alla griglia. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutta a scelta"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Frittata con 3 uova con carciofi o zucchine. 1 fetta di pane integrale 90 gr oppure 75 gr di salmone affumicato oppure tonno con insalata mista. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 3,
+                    "weekday_label": "Wednesday",
+                    "weekday_label_it": "Mercoledí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Come da abitudine"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Panino piccolo"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "90 gr Orzo o riso o farro freddo con pomodori, mais e olive nere. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutto e 2 mandorle"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Crema di verdure con gusto a scelta anche surgelata oppure misto di verdure crude di stagione. 90 gr di robiola o altro formaggio come ricotta o crescenza e verdure alla griglia. 80 gr di pane. Frutto"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 4,
+                    "weekday_label": "Thursday",
+                    "weekday_label_it": "Giovedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Libera"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt naturale da bere GUSTO A SCELTA, poi 2 noci"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Insalatone a piacere. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutta a scelta"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "2 fette di pollo o tacchino e verdure sulla griglia comunque carne bianca ( in alternativa se disponibilità di tempo galletto o faraona in forno). Insalata e verdure miste di stagione. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 5,
+                    "weekday_label": "Friday",
+                    "weekday_label_it": "Venerdí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Come da abitudine"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt , 3 noci, 4 crackers"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Pollo alla griglia, oppure 7 fette di bresaola con parmigiano e rucola. 1 fetta di pane. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Gelato artigianale piccolo 2 palline"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "170 gr di trancio pesce spada, OPPURE salmone sulla griglia o in padella, oppure alici sott’olio con pane 80 gr. Comunque pesce a scelta con contorno di verdure. Frutta a scelta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 6,
+                    "weekday_label": "Saturday",
+                    "weekday_label_it": "Sabato",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Libera"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 frutto"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "80 gr di farro freddo con pesto o mais olive nere e pomodorini. Secondo a scelta. Frutta a scelta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 yogurt naturale da bere GUSTO A SCELTA"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Pizza margherita o con verdure"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 7,
+                    "weekday_label": "Sunday",
+                    "weekday_label_it": "Domenica",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Colazione a scelta"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Fette biscottate integrali e marmellata 1 kiwi"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Legumi a scelta. Caprese con 1 mozzarella. 1 fetta di pane 70 gr. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutta"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Carne bianca o rossa circa 160 gr con verdure miste di stagione. 1 fetta di pane. Frutta"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "week_id": 2,
+            "days": [
+                {
+                    "weekday_id": 1,
+                    "weekday_label": "Monday",
+                    "weekday_label_it": "Lunedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Libera"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt naturale, 3 mandorle, 3 albicocche"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "FAGIOLI CON TONNO SOTT’OLIO BEN SGOCCIOLATO E 1 CIPOLLA TRITATA FINEMENTE e FRUTTA A SCELTA, oppure pollo con verdure e 3 fette di pane"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 frutto"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "70 gr di prosciutto crudo o altro salume a disposizione, 100 gr di pane e verdure miste. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 2,
+                    "weekday_label": "Tuesday",
+                    "weekday_label_it": "Martedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Colazione a scelta"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 yogurt naturale o con frutta a pezzi. No muller"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "80 gr di pasta con pomodoro fresco basilico o altro condimento, misto di verdure crude di stagione, mezza mozzarella, 1 fetta di pane integrale e frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Una decina di semi di zucca"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Pesce a scelta bene surgelato con verdure, 2 fette di pane e frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 3,
+                    "weekday_label": "Wednesday",
+                    "weekday_label_it": "Mercoledí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Fette biscottate integrali e marmellata, 1 kiwi"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Yogurt e frutta"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Piatto di pasta con 2 cucchiai di olio e 3 cucchiaini di parmigiano, insalata mista e frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Gelato"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Legumi per esempio piselli con prosciutto cotto, melanzane grigliate,  90 gr di pane. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 4,
+                    "weekday_label": "Thursday",
+                    "weekday_label_it": "Giovedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Libera"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 quadratino di cioccolato fondente"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "90 gr di riso o farro con verdure miste o condimento a scelta. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 yogurt naturale, da bere GUSTO A SCELTA"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Libera. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 5,
+                    "weekday_label": "Friday",
+                    "weekday_label_it": "Venerdí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Fette biscottate integrali e marmellata 1 kiwi"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Salta snack del mattino."
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Insalatone misto con 1 fetta di pollo 2 fette di pane e frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Gelato medio"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Trancio di pesce a scelta bene tonno o salmone o pesce spada con verdure miste 1 fetta di pane e frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 6,
+                    "weekday_label": "Saturday",
+                    "weekday_label_it": "Sabato",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Libera"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "1 quadratino di cioccolato fondente"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Libero. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 yogurt naturale da bere GUSTO A SCELTA"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Pizza e bibita"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 7,
+                    "weekday_label": "Sunday",
+                    "weekday_label_it": "Domenica",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Fette biscottate integrali e marmellata 1 kiwi"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Salta snack del Mattino"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "1 fetta di filetto con contorno a scelta. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Gelato"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Zuppa mista di legumi o legumi a scelta 3/4 fette di salmone affumicato oppure pesce spada e valeriana. Frutta"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "week_id": 3,
+            "days": [
+                {
+                    "weekday_id": 1,
+                    "weekday_label": "Monday",
+                    "weekday_label_it": "Lunedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Come da abitudine ad esempio Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Schiacciatina"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "90 grammi piatto di pasta con pomodoro, 2 cucchiaini di parmigiano reggiano e 2 cucchiai di olio. Spinaci misti. frutto"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutta e yogurt dopo l’allenamento"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "6 fette di bresaola con parmigiano, limone e rucola. Misto di verdure alla griglia. 2 fette di pane integrale. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 2,
+                    "weekday_label": "Tuesday",
+                    "weekday_label_it": "Martedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Pane 30 gr per fetta e prosciutto"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "1 fetta di carne rossa o bianca a scelta, contorno di piselli ed 1 fetta di pane integrale. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Frutto e 5 mandorle"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "FRITTATA CON 2 UOVA E 1 FETTA DI PANE INTEGRALE VERDURE CRUDE E FRUTTA"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 3,
+                    "weekday_label": "Wednesday",
+                    "weekday_label_it": "Mercoledí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Frutta"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "90 grammi di pasta con condimento a piacere. Ceci o piselli. 1 mela o 1 kiwi"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Yogurt 2 noci"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Trancio di salmone sulla griglia con contorno a scelta, oppure Fagioli con 1 scatoletta piccola di tonno. Due fette di pane. Frutta a scelta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 4,
+                    "weekday_label": "Thursday",
+                    "weekday_label_it": "Giovedí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Frutto"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "80 grammi pasta con sugo di pesce (trabaccolara ovvero pesce bianco e pomodoro). 2 fette di prosciutto di parma e mezzo panetto di robiola con piselli e 1 fetta di pane integrale. Frutta a scelta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "2 noci 3 mandorle o nocciole yogurt"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Passato di fagioli o ceci con pasta 60 grammi. Misto di verdure crude o cotte in padella con max 2 cucchiai di olio extravergine pane. Frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 5,
+                    "weekday_label": "Friday",
+                    "weekday_label_it": "Venerdí",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Schiacciatina"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Minestrone anche surgelato o passato di verdure con 2 FETTE ARROSTITE di pane, 4 bastoncini di pesce in forno. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "Yogurt"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Melanzane in forno con passata di pomodoro e mozzarella. 2 fette di pane integrale. Macedonia"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 6,
+                    "weekday_label": "Saturday",
+                    "weekday_label_it": "Sabato",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Schiacciatina"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "1 porzione di lasagne oppure misto di legumi. Misto di verdure in padella. Frutta"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 yogurt naturale da bere GUSTO A SCELTA"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Pizza margherita o con verdure o biancaneve, bibita a scelta e frutta"
+                        }
+                    ]
+                },
+                {
+                    "weekday_id": 7,
+                    "weekday_label": "Sunday",
+                    "weekday_label_it": "Domenica",
+                    "meals": [
+                        {
+                            "meal_id": "brk",
+                            "meal_label": "Breakfast",
+                            "meal_label_it": "Colazione",
+                            "item": "Tè con 8/10 biscotti oppure 3 fette biscottate con marmellata"
+                        },
+                        {
+                            "meal_id": "snack_m",
+                            "meal_label": "Morning Snack",
+                            "meal_label_it": "Snack del Mattino",
+                            "item": "Salta snack del Mattino"
+                        },
+                        {
+                            "meal_id": "lunch",
+                            "meal_label": "Lunch",
+                            "meal_label_it": "Pranzo",
+                            "item": "Passato di zucca O CAROTE (bene anche surgelato). Sgombro con piselli 1 fetta di pane"
+                        },
+                        {
+                            "meal_id": "snack_a",
+                            "meal_label": "Snack Afternoon",
+                            "meal_label_it": "Snack del Pomeriggio",
+                            "item": "1 fetta di crostata oppure altro dolce"
+                        },
+                        {
+                            "meal_id": "dinner",
+                            "meal_label": "Dinner",
+                            "meal_label_it": "Cena",
+                            "item": "Minestrone o passato di verdure con 1 fetta di pane arrostita,  pollo ai funghi e curry contorno carote, 1 fetta di pane, frutta"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
