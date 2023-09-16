@@ -15,7 +15,11 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Optional: Remove list styles */
@@ -36,11 +40,18 @@ button:focus {
     outline: none;
 }
 
-.header {
+header {
     background-color: #ffc107;
 
 }
 
-.ctas > .lx {
+header .title {
+    background-color: white;
+}
+header .ctas {
+    padding: 10px;
+}
+
+.ctas>.lx {
     width: 50%;
 }
