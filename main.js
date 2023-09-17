@@ -6,7 +6,7 @@ function createDateArray(startDateInput) {
 
 
     if (currentDate < startDate) {
-        currentDate = startDate;
+        startDate = currentDate;
     }
     // Calculate the end date as 3 weeks from the current date
     const endDate = new Date();
@@ -30,7 +30,7 @@ function createDateArray(startDateInput) {
         // Move to the next day
         currentDateCopy.setDate(currentDateCopy.getDate() + 1);
     }
-
+    console.log(dateArray);
     return dateArray;
 }
 
@@ -138,7 +138,7 @@ let current_display_date;
 let today = new Date();
 current_display_date = today;
 
-const startingDate = new Date('2023-09-11');
+const startingDate = new Date('2023-08-28');
 let endingDate;
 
 prev_date.addEventListener('click', previousDay);

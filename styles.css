@@ -40,18 +40,47 @@ button:focus {
     outline: none;
 }
 
-header {
-    background-color: #ffc107;
 
+header {
+    background-color: #374d7c;
+
+}
+
+header h1 {
+    text-transform: uppercase;
+    color: #fff;
 }
 
 header .title {
-    background-color: white;
+    background-color: #fff;
+    color: #374d7c;
+    font-style: italic;
 }
 header .ctas {
     padding: 10px;
+    background-color: #fff;
+}
+
+.btn-light {
+    background-color: #46edc8;
+    border-color: #46edc8;
+    /* color:#fff; */
+}
+
+.btn-primary {
+    
+    background-color: #374d7c;
+    border-color: #374d7c;
+}
+
+.container-sm {
+    max-width: 642px;
 }
 
 .ctas>.lx {
     width: 50%;
+}
+
+.meal {
+    border:2px solid #46edc8;
 }
