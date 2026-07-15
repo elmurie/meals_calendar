@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light" data-font-size="medium" data-meal-border="neutral">
 
 <head>
     <meta charset="UTF-8">
@@ -99,6 +99,12 @@
                 <input id="primary-color" name="primaryColor" type="color" aria-label="Colore principale">
                 <output id="primary-color-value" for="primary-color"></output>
             </div>
+
+            <label class="form-label" for="meal-border-select">Colore secondario</label>
+            <select class="form-select" id="meal-border-select" name="mealBorder">
+                <option value="neutral">Neutro</option>
+                <option value="primary">Come il colore principale</option>
+            </select>
 
             <div class="settings-actions">
                 <button class="btn btn-outline-secondary" id="reset-settings" type="button">Ripristina</button>

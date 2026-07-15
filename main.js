@@ -1,9 +1,10 @@
 const DEFAULT_SETTINGS = Object.freeze({
     planName: 'Dieta Simone',
     startDate: '2023-08-28',
-    theme: 'auto',
+    theme: 'light',
     fontSize: 'medium',
-    primaryColor: '#374d7c'
+    primaryColor: '#374d7c',
+    mealBorder: 'neutral'
 });
 const SETTINGS_STORAGE_KEY = 'meal-plan-settings-v1';
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -34,6 +35,7 @@ const themeSelect = document.getElementById('theme-select');
 const fontSizeSelect = document.getElementById('font-size-select');
 const primaryColorInput = document.getElementById('primary-color');
 const primaryColorValue = document.getElementById('primary-color-value');
+const mealBorderSelect = document.getElementById('meal-border-select');
 const mealPlanDisplay = document.getElementById('meal-plan');
 const statusDisplay = document.getElementById('status');
 
@@ -94,7 +96,7 @@ function renderPage() {
     } else {
         mealPlanDisplay.replaceChildren(...day.meals.map(createMealCard));
     }
-    todayButton.disabled = isSameDay(currentDisplayDate, new Date());
+    todayButton.disabled = viewMode === 'day' && isSameDay(currentDisplayDate, new Date());
 }
 
 function formatWeekRange(date) {
@@ -255,7 +257,11 @@ function toggleSearch(forceOpen) {
     searchPanel.hidden = !shouldOpen;
     searchToggle.setAttribute('aria-expanded', String(shouldOpen));
     searchToggle.classList.toggle('is-active', shouldOpen);
-    if (shouldOpen) searchInput.focus();
+    if (shouldOpen) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        window.requestAnimationFrame(() => searchInput.focus({ preventScroll: true }));
+    }
 }
 
 function searchMeals(query) {
@@ -344,7 +350,8 @@ function sanitizeSettings(candidate) {
         startDate: /^\d{4}-\d{2}-\d{2}$/.test(candidate.startDate) ? candidate.startDate : DEFAULT_SETTINGS.startDate,
         theme: validThemes.includes(candidate.theme) ? candidate.theme : DEFAULT_SETTINGS.theme,
         fontSize: validFontSizes.includes(candidate.fontSize) ? candidate.fontSize : DEFAULT_SETTINGS.fontSize,
-        primaryColor: /^#[0-9a-f]{6}$/i.test(candidate.primaryColor) ? candidate.primaryColor : DEFAULT_SETTINGS.primaryColor
+        primaryColor: /^#[0-9a-f]{6}$/i.test(candidate.primaryColor) ? candidate.primaryColor : DEFAULT_SETTINGS.primaryColor,
+        mealBorder: ['neutral', 'primary'].includes(candidate.mealBorder) ? candidate.mealBorder : DEFAULT_SETTINGS.mealBorder
     };
 }
 
@@ -358,6 +365,7 @@ function applySettings() {
     document.title = settings.planName;
     document.documentElement.dataset.theme = settings.theme;
     document.documentElement.dataset.fontSize = settings.fontSize;
+    document.documentElement.dataset.mealBorder = settings.mealBorder;
     document.documentElement.style.setProperty('--primary', settings.primaryColor);
     document.documentElement.style.setProperty('--on-primary', getContrastColor(settings.primaryColor));
     planStartDate = parseLocalDate(settings.startDate);
@@ -378,6 +386,7 @@ function populateSettingsForm() {
     fontSizeSelect.value = settings.fontSize;
     primaryColorInput.value = settings.primaryColor;
     primaryColorValue.value = settings.primaryColor.toUpperCase();
+    mealBorderSelect.value = settings.mealBorder;
 }
 
 function openSettings() {
@@ -398,7 +407,8 @@ function saveSettings(event) {
         startDate: planStartDateInput.value,
         theme: themeSelect.value,
         fontSize: fontSizeSelect.value,
-        primaryColor: primaryColorInput.value
+        primaryColor: primaryColorInput.value,
+        mealBorder: mealBorderSelect.value
     });
     try {
         localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
@@ -479,7 +489,8 @@ function setLoading(isLoading) {
 previousButton.addEventListener('click', () => moveToDay(viewMode === 'week' ? -7 : -1));
 nextButton.addEventListener('click', () => moveToDay(viewMode === 'week' ? 7 : 1));
 todayButton.addEventListener('click', () => {
-    selectDate(new Date());
+    currentDisplayDate = startOfDay(new Date());
+    setViewMode('day');
 });
 dayViewButton.addEventListener('click', () => setViewMode('day'));
 weekViewButton.addEventListener('click', () => setViewMode('week'));

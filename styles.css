@@ -63,8 +63,8 @@ header .ctas {
 }
 
 .btn-light {
-    background-color: #46edc8;
-    border-color: #46edc8;
+    background-color: var(--secondary);
+    border-color: var(--secondary);
     /* color:#fff; */
 }
 
@@ -83,13 +83,12 @@ header .ctas {
 }
 
 .meal {
-    border:2px solid #46edc8;
+    border:2px solid var(--secondary);
 }
 
 :root {
     --primary: #374d7c;
     --on-primary: #ffffff;
-    --accent: #46edc8;
     --page-bg: #ffffff;
     --surface: #ffffff;
     --surface-soft: #f7f9fc;
@@ -98,6 +97,7 @@ header .ctas {
     --border: #d9e0ec;
     --switch-bg: #e9edf5;
     --hover-bg: #e9f0ff;
+    --neutral-meal-border: #64748b;
     color-scheme: light;
 }
 
@@ -248,12 +248,12 @@ body {
     bottom: 4px;
     width: 5px;
     height: 5px;
-    background-color: #20b89a;
+    background-color: var(--secondary);
     border-radius: 50%;
 }
 
 .week-day.is-selected.is-today::after {
-    background-color: #46edc8;
+    background-color: var(--on-primary);
 }
 
 .week-day-label {
@@ -289,7 +289,7 @@ body {
 }
 
 .week-plan-day.is-today {
-    border: 2px solid #20b89a;
+    border: 2px solid var(--secondary);
 }
 
 .week-plan-heading {
@@ -457,6 +457,49 @@ header .title,
 .week-plan-day { background: var(--surface); border-color: var(--border); }
 .week-meal-row { border-color: var(--border); }
 
+html[data-meal-border="neutral"] .meal {
+    border-color: var(--secondary);
+}
+
+html[data-meal-border="primary"] .meal {
+    border-color: var(--secondary);
+}
+
+html[data-meal-border="neutral"] {
+    --secondary: var(--neutral-meal-border);
+    --on-secondary: #ffffff;
+}
+
+html[data-meal-border="primary"] {
+    --secondary: var(--primary);
+    --on-secondary: var(--on-primary);
+}
+
+.btn-light,
+.btn-light:hover,
+.btn-light:active {
+    color: var(--on-secondary) !important;
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+}
+
+.btn-light:hover,
+.btn-light:active {
+    filter: brightness(.92);
+}
+
+.week-day.is-today::after {
+    background-color: var(--secondary);
+}
+
+.week-day.is-selected.is-today::after {
+    background-color: var(--on-primary);
+}
+
+.week-plan-day.is-today {
+    border-color: var(--secondary);
+}
+
 .settings-toggle:focus-visible,
 .dialog-close:focus-visible,
 .settings-dialog .form-control:focus,
@@ -547,6 +590,7 @@ html[data-theme="dark"] {
     --border: #3c4a5f;
     --switch-bg: #111827;
     --hover-bg: #29364a;
+    --neutral-meal-border: #526176;
     color-scheme: dark;
 }
 
@@ -560,6 +604,7 @@ html[data-theme="dark"] {
         --border: #3c4a5f;
         --switch-bg: #111827;
         --hover-bg: #29364a;
+        --neutral-meal-border: #526176;
         color-scheme: dark;
     }
 }
