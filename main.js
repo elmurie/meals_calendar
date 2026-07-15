@@ -1,4 +1,11 @@
-const PLAN_START_DATE = new Date(2023, 7, 28); // Lunedì 28 agosto 2023
+const DEFAULT_SETTINGS = Object.freeze({
+    planName: 'Dieta Simone',
+    startDate: '2023-08-28',
+    theme: 'auto',
+    fontSize: 'medium',
+    primaryColor: '#374d7c'
+});
+const SETTINGS_STORAGE_KEY = 'meal-plan-settings-v1';
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
 const previousButton = document.getElementById('prev-day');
@@ -7,11 +14,34 @@ const todayButton = document.getElementById('today');
 const dateDisplay = document.getElementById('date');
 const weekDisplay = document.getElementById('week-number');
 const weekStrip = document.getElementById('week-strip');
+const dayViewButton = document.getElementById('day-view');
+const weekViewButton = document.getElementById('week-view');
+const searchToggle = document.getElementById('search-toggle');
+const searchPanel = document.getElementById('search-panel');
+const searchInput = document.getElementById('meal-search');
+const closeSearchButton = document.getElementById('close-search');
+const searchSummary = document.getElementById('search-summary');
+const searchResults = document.getElementById('search-results');
+const appTitle = document.getElementById('app-title');
+const settingsToggle = document.getElementById('settings-toggle');
+const settingsDialog = document.getElementById('settings-dialog');
+const settingsForm = document.getElementById('settings-form');
+const closeSettingsButton = document.getElementById('close-settings');
+const resetSettingsButton = document.getElementById('reset-settings');
+const planNameInput = document.getElementById('plan-name');
+const planStartDateInput = document.getElementById('plan-start-date');
+const themeSelect = document.getElementById('theme-select');
+const fontSizeSelect = document.getElementById('font-size-select');
+const primaryColorInput = document.getElementById('primary-color');
+const primaryColorValue = document.getElementById('primary-color-value');
 const mealPlanDisplay = document.getElementById('meal-plan');
 const statusDisplay = document.getElementById('status');
 
 let dietPlan = null;
+let settings = loadSettings();
+let planStartDate = parseLocalDate(settings.startDate);
 let currentDisplayDate = startOfDay(new Date());
+let viewMode = 'day';
 let pointerStart = null;
 
 function startOfDay(date) {
@@ -28,7 +58,7 @@ function getPlanDay(date) {
     const totalWeeks = dietPlan.weeks.length;
     const daysPerWeek = dietPlan.weeks[0].days.length;
     const cycleLength = totalWeeks * daysPerWeek;
-    const elapsedDays = Math.round((startOfDay(date) - PLAN_START_DATE) / MILLISECONDS_PER_DAY);
+    const elapsedDays = Math.round((startOfDay(date) - planStartDate) / MILLISECONDS_PER_DAY);
 
     // Il doppio modulo mantiene il risultato positivo anche prima della data iniziale.
     const cycleDay = ((elapsedDays % cycleLength) + cycleLength) % cycleLength;
@@ -47,17 +77,89 @@ function renderPage() {
 
     const { day, weekNumber, totalWeeks } = getPlanDay(currentDisplayDate);
 
-    dateDisplay.textContent = currentDisplayDate.toLocaleDateString('it-IT', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }).toUpperCase();
+    dateDisplay.textContent = viewMode === 'week'
+        ? formatWeekRange(currentDisplayDate).toUpperCase()
+        : currentDisplayDate.toLocaleDateString('it-IT', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        }).toUpperCase();
     weekDisplay.textContent = `Settimana ${weekNumber} di ${totalWeeks}`;
 
     renderWeekStrip();
-    mealPlanDisplay.replaceChildren(...day.meals.map(createMealCard));
+    mealPlanDisplay.classList.toggle('weekly-plan', viewMode === 'week');
+    if (viewMode === 'week') {
+        renderWeeklyPlan();
+    } else {
+        mealPlanDisplay.replaceChildren(...day.meals.map(createMealCard));
+    }
     todayButton.disabled = isSameDay(currentDisplayDate, new Date());
+}
+
+function formatWeekRange(date) {
+    const monday = getMonday(date);
+    const sunday = addDays(monday, 6);
+    const sameMonth = monday.getMonth() === sunday.getMonth();
+    const start = monday.toLocaleDateString('it-IT', sameMonth
+        ? { day: 'numeric' }
+        : { day: 'numeric', month: 'short' });
+    const end = sunday.toLocaleDateString('it-IT', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+    return `${start} – ${end}`;
+}
+
+function renderWeeklyPlan() {
+    const monday = getMonday(currentDisplayDate);
+    const daySections = Array.from({ length: 7 }, (_, index) => {
+        const date = addDays(monday, index);
+        const { day } = getPlanDay(date);
+        return createWeekDaySection(date, day);
+    });
+
+    mealPlanDisplay.replaceChildren(...daySections);
+}
+
+function createWeekDaySection(date, planDay) {
+    const section = document.createElement('section');
+    section.className = 'week-plan-day';
+    if (isSameDay(date, new Date())) section.classList.add('is-today');
+
+    const headingButton = document.createElement('button');
+    headingButton.type = 'button';
+    headingButton.className = 'week-plan-heading';
+    headingButton.textContent = date.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+    });
+    headingButton.title = 'Apri questo giorno';
+    headingButton.addEventListener('click', () => {
+        setViewMode('day');
+        selectDate(date);
+    });
+
+    const meals = document.createElement('div');
+    meals.className = 'week-plan-meals';
+    meals.append(...planDay.meals.map((meal) => {
+        const row = document.createElement('div');
+        row.className = 'week-meal-row';
+
+        const label = document.createElement('strong');
+        label.textContent = meal.meal_label_it;
+
+        const description = document.createElement('p');
+        description.textContent = meal.item;
+
+        row.append(label, description);
+        return row;
+    }));
+
+    section.append(headingButton, meals);
+    return section;
 }
 
 function renderWeekStrip() {
@@ -136,6 +238,190 @@ function selectDate(date, direction) {
     renderPage();
 }
 
+function setViewMode(mode) {
+    viewMode = mode;
+    const isDayView = mode === 'day';
+    dayViewButton.classList.toggle('is-active', isDayView);
+    weekViewButton.classList.toggle('is-active', !isDayView);
+    dayViewButton.setAttribute('aria-pressed', String(isDayView));
+    weekViewButton.setAttribute('aria-pressed', String(!isDayView));
+    previousButton.setAttribute('aria-label', isDayView ? 'Giorno precedente' : 'Settimana precedente');
+    nextButton.setAttribute('aria-label', isDayView ? 'Giorno successivo' : 'Settimana successiva');
+    renderPage();
+}
+
+function toggleSearch(forceOpen) {
+    const shouldOpen = forceOpen ?? searchPanel.hidden;
+    searchPanel.hidden = !shouldOpen;
+    searchToggle.setAttribute('aria-expanded', String(shouldOpen));
+    searchToggle.classList.toggle('is-active', shouldOpen);
+    if (shouldOpen) searchInput.focus();
+}
+
+function searchMeals(query) {
+    if (!dietPlan) return;
+    const normalizedQuery = normalizeText(query.trim());
+    searchResults.replaceChildren();
+
+    if (normalizedQuery.length < 2) {
+        searchSummary.textContent = query ? 'Inserisci almeno 2 caratteri.' : '';
+        return;
+    }
+
+    const matches = [];
+    dietPlan.weeks.forEach((week, weekIndex) => {
+        week.days.forEach((day, dayIndex) => {
+            day.meals.forEach((meal) => {
+                const searchableText = normalizeText(`${meal.meal_label_it} ${meal.item}`);
+                if (searchableText.includes(normalizedQuery)) {
+                    matches.push({ weekIndex, dayIndex, day, meal });
+                }
+            });
+        });
+    });
+
+    searchSummary.textContent = matches.length === 1
+        ? '1 risultato trovato'
+        : `${matches.length} risultati trovati`;
+    searchResults.append(...matches.map(createSearchResult));
+}
+
+function createSearchResult(result) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'search-result';
+
+    const context = document.createElement('span');
+    context.className = 'search-result-context';
+    context.textContent = `Settimana ${result.weekIndex + 1} · ${result.day.weekday_label_it} · ${result.meal.meal_label_it}`;
+
+    const text = document.createElement('span');
+    text.className = 'search-result-text';
+    text.textContent = result.meal.item;
+
+    button.append(context, text);
+    button.addEventListener('click', () => {
+        const targetDate = getDateForPlanPosition(result.weekIndex, result.dayIndex);
+        toggleSearch(false);
+        setViewMode('day');
+        selectDate(targetDate);
+    });
+    return button;
+}
+
+function getDateForPlanPosition(weekIndex, dayIndex) {
+    const daysPerWeek = dietPlan.weeks[0].days.length;
+    const currentCycleDay = getCycleDay(currentDisplayDate);
+    const cycleStart = addDays(currentDisplayDate, -currentCycleDay);
+    return addDays(cycleStart, weekIndex * daysPerWeek + dayIndex);
+}
+
+function getCycleDay(date) {
+    const cycleLength = dietPlan.weeks.length * dietPlan.weeks[0].days.length;
+    const elapsedDays = Math.round((startOfDay(date) - planStartDate) / MILLISECONDS_PER_DAY);
+    return ((elapsedDays % cycleLength) + cycleLength) % cycleLength;
+}
+
+function normalizeText(text) {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('it-IT');
+}
+
+function loadSettings() {
+    try {
+        const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY));
+        return sanitizeSettings({ ...DEFAULT_SETTINGS, ...savedSettings });
+    } catch (error) {
+        console.warn('Impossibile leggere le impostazioni salvate:', error);
+        return { ...DEFAULT_SETTINGS };
+    }
+}
+
+function sanitizeSettings(candidate) {
+    const validThemes = ['auto', 'light', 'dark'];
+    const validFontSizes = ['small', 'medium', 'large'];
+    return {
+        planName: String(candidate.planName || DEFAULT_SETTINGS.planName).slice(0, 40),
+        startDate: /^\d{4}-\d{2}-\d{2}$/.test(candidate.startDate) ? candidate.startDate : DEFAULT_SETTINGS.startDate,
+        theme: validThemes.includes(candidate.theme) ? candidate.theme : DEFAULT_SETTINGS.theme,
+        fontSize: validFontSizes.includes(candidate.fontSize) ? candidate.fontSize : DEFAULT_SETTINGS.fontSize,
+        primaryColor: /^#[0-9a-f]{6}$/i.test(candidate.primaryColor) ? candidate.primaryColor : DEFAULT_SETTINGS.primaryColor
+    };
+}
+
+function parseLocalDate(value) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
+
+function applySettings() {
+    appTitle.textContent = settings.planName;
+    document.title = settings.planName;
+    document.documentElement.dataset.theme = settings.theme;
+    document.documentElement.dataset.fontSize = settings.fontSize;
+    document.documentElement.style.setProperty('--primary', settings.primaryColor);
+    document.documentElement.style.setProperty('--on-primary', getContrastColor(settings.primaryColor));
+    planStartDate = parseLocalDate(settings.startDate);
+}
+
+function getContrastColor(hexColor) {
+    const red = Number.parseInt(hexColor.slice(1, 3), 16);
+    const green = Number.parseInt(hexColor.slice(3, 5), 16);
+    const blue = Number.parseInt(hexColor.slice(5, 7), 16);
+    const luminance = (red * 299 + green * 587 + blue * 114) / 1000;
+    return luminance > 150 ? '#172033' : '#ffffff';
+}
+
+function populateSettingsForm() {
+    planNameInput.value = settings.planName;
+    planStartDateInput.value = settings.startDate;
+    themeSelect.value = settings.theme;
+    fontSizeSelect.value = settings.fontSize;
+    primaryColorInput.value = settings.primaryColor;
+    primaryColorValue.value = settings.primaryColor.toUpperCase();
+}
+
+function openSettings() {
+    populateSettingsForm();
+    if (typeof settingsDialog.showModal === 'function') settingsDialog.showModal();
+    else settingsDialog.setAttribute('open', '');
+}
+
+function closeSettings() {
+    if (typeof settingsDialog.close === 'function') settingsDialog.close();
+    else settingsDialog.removeAttribute('open');
+}
+
+function saveSettings(event) {
+    event.preventDefault();
+    settings = sanitizeSettings({
+        planName: planNameInput.value.trim(),
+        startDate: planStartDateInput.value,
+        theme: themeSelect.value,
+        fontSize: fontSizeSelect.value,
+        primaryColor: primaryColorInput.value
+    });
+    try {
+        localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+    } catch (error) {
+        console.warn('Le impostazioni verranno applicate, ma non possono essere salvate:', error);
+    }
+    applySettings();
+    closeSettings();
+    renderPage();
+}
+
+function resetSettings() {
+    settings = { ...DEFAULT_SETTINGS };
+    try {
+        localStorage.removeItem(SETTINGS_STORAGE_KEY);
+    } catch (error) {
+        console.warn('Impossibile eliminare le impostazioni salvate:', error);
+    }
+    applySettings();
+    populateSettingsForm();
+    renderPage();
+}
+
 function animateMealPlan(direction) {
     mealPlanDisplay.classList.remove('slide-next', 'slide-previous');
     void mealPlanDisplay.offsetWidth;
@@ -190,10 +476,25 @@ function setLoading(isLoading) {
     }
 }
 
-previousButton.addEventListener('click', () => moveToDay(-1));
-nextButton.addEventListener('click', () => moveToDay(1));
+previousButton.addEventListener('click', () => moveToDay(viewMode === 'week' ? -7 : -1));
+nextButton.addEventListener('click', () => moveToDay(viewMode === 'week' ? 7 : 1));
 todayButton.addEventListener('click', () => {
     selectDate(new Date());
+});
+dayViewButton.addEventListener('click', () => setViewMode('day'));
+weekViewButton.addEventListener('click', () => setViewMode('week'));
+searchToggle.addEventListener('click', () => toggleSearch());
+closeSearchButton.addEventListener('click', () => toggleSearch(false));
+searchInput.addEventListener('input', () => searchMeals(searchInput.value));
+settingsToggle.addEventListener('click', openSettings);
+closeSettingsButton.addEventListener('click', closeSettings);
+settingsForm.addEventListener('submit', saveSettings);
+resetSettingsButton.addEventListener('click', resetSettings);
+primaryColorInput.addEventListener('input', () => {
+    primaryColorValue.value = primaryColorInput.value.toUpperCase();
+});
+settingsDialog.addEventListener('click', (event) => {
+    if (event.target === settingsDialog) closeSettings();
 });
 
 document.addEventListener('keydown', (event) => {
@@ -201,10 +502,10 @@ document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        moveToDay(-1);
+        moveToDay(viewMode === 'week' ? -7 : -1);
     } else if (event.key === 'ArrowRight') {
         event.preventDefault();
-        moveToDay(1);
+        moveToDay(viewMode === 'week' ? 7 : 1);
     }
 });
 
@@ -236,7 +537,10 @@ function finishPointerGesture(event) {
     const isHorizontalSwipe = Math.abs(deltaX) >= 60 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25;
 
     cancelPointerGesture();
-    if (isHorizontalSwipe) moveToDay(deltaX < 0 ? 1 : -1);
+    if (isHorizontalSwipe) {
+        const step = viewMode === 'week' ? 7 : 1;
+        moveToDay(deltaX < 0 ? step : -step);
+    }
 }
 
 function cancelPointerGesture() {
@@ -244,4 +548,5 @@ function cancelPointerGesture() {
     mealPlanDisplay.classList.remove('is-dragging');
 }
 
+applySettings();
 loadDietPlan();

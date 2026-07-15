@@ -86,12 +86,130 @@ header .ctas {
     border:2px solid #46edc8;
 }
 
+:root {
+    --primary: #374d7c;
+    --on-primary: #ffffff;
+    --accent: #46edc8;
+    --page-bg: #ffffff;
+    --surface: #ffffff;
+    --surface-soft: #f7f9fc;
+    --text: #202938;
+    --muted: #53627d;
+    --border: #d9e0ec;
+    --switch-bg: #e9edf5;
+    --hover-bg: #e9f0ff;
+    color-scheme: light;
+}
+
+html[data-font-size="small"] { font-size: 14px; }
+html[data-font-size="medium"] { font-size: 16px; }
+html[data-font-size="large"] { font-size: 18px; }
+
+body {
+    color: var(--text);
+    background: var(--page-bg);
+}
+
 .week-navigation {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 6px;
     padding: 10px;
     background-color: #fff;
+}
+
+.app-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 10px 10px;
+    background: #fff;
+}
+
+.view-switch {
+    display: inline-flex;
+    padding: 3px;
+    background: #e9edf5;
+    border-radius: 10px;
+}
+
+.view-switch-button,
+.search-toggle {
+    padding: 7px 12px;
+    color: #374d7c;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.view-switch-button.is-active,
+.search-toggle.is-active {
+    color: #fff;
+    background: #374d7c;
+}
+
+.view-switch-button:focus-visible,
+.search-toggle:focus-visible,
+.search-result:focus-visible,
+.week-plan-heading:focus-visible {
+    outline: 3px solid #1b75d0;
+    outline-offset: 2px;
+}
+
+.search-panel {
+    margin-top: 16px;
+    padding: 16px;
+    background: #f7f9fc;
+    border: 1px solid #d9e0ec;
+    border-radius: 12px;
+}
+
+.search-field-row {
+    display: flex;
+    gap: 8px;
+}
+
+.search-summary {
+    min-height: 24px;
+    margin: 10px 0 4px;
+    color: #53627d;
+}
+
+.search-results {
+    display: grid;
+    gap: 8px;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding: 12px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #d9e0ec;
+    border-radius: 9px;
+}
+
+.search-result:hover {
+    border-color: #374d7c;
+    background: #f1f5ff;
+}
+
+.search-result-context {
+    color: #374d7c;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.search-result-text {
+    color: #202938;
+    font-size: .92rem;
 }
 
 .week-day {
@@ -157,6 +275,55 @@ header .ctas {
     touch-action: pan-y;
 }
 
+.weekly-plan {
+    display: grid;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.week-plan-day {
+    overflow: hidden;
+    border: 1px solid #cbd5e5;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.week-plan-day.is-today {
+    border: 2px solid #20b89a;
+}
+
+.week-plan-heading {
+    width: 100%;
+    padding: 12px 14px;
+    color: #fff;
+    text-align: left;
+    text-transform: capitalize;
+    background: #374d7c;
+    border: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.week-plan-meals {
+    padding: 4px 14px;
+}
+
+.week-meal-row {
+    display: grid;
+    grid-template-columns: minmax(115px, .35fr) 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e6eaf1;
+}
+
+.week-meal-row:last-child {
+    border-bottom: 0;
+}
+
+.week-meal-row p {
+    margin: 0;
+}
+
 #meal-plan.is-dragging {
     cursor: grabbing;
     user-select: none;
@@ -199,6 +366,26 @@ header .ctas {
     .week-day-label {
         font-size: .68rem;
     }
+
+    .app-toolbar {
+        gap: 6px;
+    }
+
+    .view-switch-button,
+    .search-toggle {
+        padding-inline: 9px;
+        font-size: .86rem;
+    }
+
+    .week-meal-row {
+        display: block;
+    }
+
+    .week-meal-row strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #374d7c;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -206,4 +393,180 @@ header .ctas {
     #meal-plan.slide-previous {
         animation: none;
     }
+}
+
+/* Personalizzazione e temi */
+header { background-color: var(--primary); }
+header h1 { color: var(--on-primary); }
+header .title,
+header .ctas,
+.week-navigation,
+.app-toolbar { background-color: var(--surface); }
+header .title,
+.view-switch-button,
+.search-toggle,
+.settings-toggle,
+.week-day,
+.search-result-context { color: var(--primary); }
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+    color: var(--on-primary) !important;
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active { filter: brightness(.9); }
+.view-switch { background: var(--switch-bg); }
+
+.view-switch-button,
+.search-toggle,
+.settings-toggle {
+    padding: 7px 12px;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.view-switch-button.is-active,
+.search-toggle.is-active,
+.week-day.is-selected,
+.week-plan-heading {
+    color: var(--on-primary);
+    background: var(--primary);
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.search-panel { background: var(--surface-soft); border-color: var(--border); }
+.search-summary { color: var(--muted); }
+.search-result {
+    color: var(--text);
+    background: var(--surface);
+    border-color: var(--border);
+}
+.search-result:hover { border-color: var(--primary); background: var(--hover-bg); }
+.search-result-text { color: var(--text); }
+.week-day:hover { background-color: var(--hover-bg); }
+.week-plan-day { background: var(--surface); border-color: var(--border); }
+.week-meal-row { border-color: var(--border); }
+
+.settings-toggle:focus-visible,
+.dialog-close:focus-visible,
+.settings-dialog .form-control:focus,
+.settings-dialog .form-select:focus {
+    outline: 3px solid #1b75d0;
+    outline-offset: 2px;
+}
+
+.settings-dialog {
+    width: min(92vw, 480px);
+    max-height: 88vh;
+    padding: 0;
+    color: var(--text);
+    background: var(--surface);
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 18px 60px rgb(0 0 0 / 30%);
+}
+
+.settings-dialog::backdrop {
+    background: rgb(15 23 42 / 58%);
+    backdrop-filter: blur(2px);
+}
+
+.settings-dialog form {
+    display: grid;
+    gap: 10px;
+    padding: 22px;
+}
+
+.settings-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.settings-heading h2 { margin: 0; font-size: 1.35rem; }
+
+.dialog-close {
+    width: 40px;
+    height: 40px;
+    color: var(--text);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.dialog-close:hover { background: var(--hover-bg); }
+.setting-help { margin: -5px 0 3px; color: var(--muted); font-size: .82rem; }
+
+.color-setting {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.color-setting input {
+    width: 56px;
+    height: 40px;
+    padding: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.color-setting output { font-family: monospace; }
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.settings-actions .btn { min-width: 112px; }
+.form-control,
+.form-select { color: var(--text); background-color: var(--surface); border-color: var(--border); }
+
+html[data-theme="dark"] {
+    --page-bg: #111827;
+    --surface: #1f2937;
+    --surface-soft: #182231;
+    --text: #edf2f7;
+    --muted: #b4c0d2;
+    --border: #3c4a5f;
+    --switch-bg: #111827;
+    --hover-bg: #29364a;
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    html[data-theme="auto"] {
+        --page-bg: #111827;
+        --surface: #1f2937;
+        --surface-soft: #182231;
+        --text: #edf2f7;
+        --muted: #b4c0d2;
+        --border: #3c4a5f;
+        --switch-bg: #111827;
+        --hover-bg: #29364a;
+        color-scheme: dark;
+    }
+}
+
+@media (max-width: 420px) {
+    .settings-label { display: none; }
+    .view-switch-button,
+    .search-toggle,
+    .settings-toggle { padding-inline: 8px; font-size: .84rem; }
 }
