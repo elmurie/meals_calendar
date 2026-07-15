@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dieta Simone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,48 +20,30 @@
         <h1 class="text-center fw-bold ">Dieta Simone</h1>
         <div class="ctas container-sm d-flex justify-content-between">
             <div class="lx d-flex gap-3">
-                <button class="btn btn-primary" id="prev-day"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                <button class="btn btn-primary" id="prev-day" type="button" aria-label="Giorno precedente"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
                     height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                 </svg></button>
-                <button class="btn btn-primary" id="next-day"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                <button class="btn btn-primary" id="next-day" type="button" aria-label="Giorno successivo"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
                         height="20" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
                     </svg></button>
             </div>
-            <div class="rx"><button class="btn btn-light" id="today">Oggi</button></div>
+            <div class="rx"><button class="btn btn-light" id="today" type="button">Oggi</button></div>
         </div>
         <div class="title p-2">
             <h2 class="text-center fw-bold" id="date"></h2>
+            <p class="text-center mb-0" id="week-number"></p>
         </div>
+        <nav class="week-navigation container-sm" id="week-strip" aria-label="Seleziona un giorno della settimana"></nav>
     </header>
     <section class="mt-2 mb-5 container-sm">
-        <div id="meal-plan">
-            <div class="meal mt-3 p-2 rounded-2">
-                <h3 class="label fw-bold">Colazione</h3>
-                <div id="brk"></div>
-            </div>
-            <div class="meal mt-3 p-2 rounded-2">
-                <h3 class="label fw-bold">Snack del Mattino</h3>
-                <div id="snack_m"></div>
-            </div>
-            <div class="meal mt-3 p-2 rounded-2">
-                <h3 class="label fw-bold">Pranzo</h3>
-                <div id="lunch"></div>
-            </div>
-            <div class="meal mt-3 p-2 rounded-2">
-                <h3 class="label fw-bold">Snack Pomeriggio</h3>
-                <div id="snack_a""></div>
-            </div>
-            <div class=" meal mt-3 p-2 rounded-2">
-                    <h3 class="label fw-bold">Cena</h3>
-                    <div id="dinner"></div>
-                </div>
-            </div>
-
+        <div id="status" role="status" aria-live="polite"></div>
+        <div id="meal-plan"></div>
     </section>
+    <script src="diet_plan_data.js"></script>
     <script src="main.js"></script>
 </body>
 

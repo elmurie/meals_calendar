@@ -1,158 +1,247 @@
-function createDateArray(startDateInput) {
+const PLAN_START_DATE = new Date(2023, 7, 28); // Lunedì 28 agosto 2023
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
-    let startDate = new Date(startDateInput);
+const previousButton = document.getElementById('prev-day');
+const nextButton = document.getElementById('next-day');
+const todayButton = document.getElementById('today');
+const dateDisplay = document.getElementById('date');
+const weekDisplay = document.getElementById('week-number');
+const weekStrip = document.getElementById('week-strip');
+const mealPlanDisplay = document.getElementById('meal-plan');
+const statusDisplay = document.getElementById('status');
 
-    let currentDate = new Date();
+let dietPlan = null;
+let currentDisplayDate = startOfDay(new Date());
+let pointerStart = null;
 
-
-    if (currentDate < startDate) {
-        startDate = currentDate;
-    }
-    // Calculate the end date as 3 weeks from the current date
-    const endDate = new Date();
-    endDate.setDate(currentDate.getDate() + 21);  // Adding 21 days (3 weeks)
-    //porta fuori da usare come limite
-    endingDate = endDate;
-
-    const dateArray = [];
-    let currentDateObj;
-
-    let currentDateCopy = new Date(startDate);  // Create a copy to avoid modifying startDate
-
-    while (currentDateCopy <= endDate) {
-        currentDateObj = new Date(currentDateCopy);
-        const dateItem = {
-            date: currentDateObj,
-            today: currentDateCopy.toDateString() === currentDate.toDateString()
-        };
-        dateArray.push(dateItem);
-
-        // Move to the next day
-        currentDateCopy.setDate(currentDateCopy.getDate() + 1);
-    }
-    console.log(dateArray);
-    return dateArray;
+function startOfDay(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
+function addDays(date, amount) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + amount);
+    return result;
+}
 
+function getPlanDay(date) {
+    const totalWeeks = dietPlan.weeks.length;
+    const daysPerWeek = dietPlan.weeks[0].days.length;
+    const cycleLength = totalWeeks * daysPerWeek;
+    const elapsedDays = Math.round((startOfDay(date) - PLAN_START_DATE) / MILLISECONDS_PER_DAY);
 
-async function fetchJsonData() {
+    // Il doppio modulo mantiene il risultato positivo anche prima della data iniziale.
+    const cycleDay = ((elapsedDays % cycleLength) + cycleLength) % cycleLength;
+    const weekIndex = Math.floor(cycleDay / daysPerWeek);
+    const dayIndex = cycleDay % daysPerWeek;
+
+    return {
+        day: dietPlan.weeks[weekIndex].days[dayIndex],
+        weekNumber: weekIndex + 1,
+        totalWeeks
+    };
+}
+
+function renderPage() {
+    if (!dietPlan) return;
+
+    const { day, weekNumber, totalWeeks } = getPlanDay(currentDisplayDate);
+
+    dateDisplay.textContent = currentDisplayDate.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).toUpperCase();
+    weekDisplay.textContent = `Settimana ${weekNumber} di ${totalWeeks}`;
+
+    renderWeekStrip();
+    mealPlanDisplay.replaceChildren(...day.meals.map(createMealCard));
+    todayButton.disabled = isSameDay(currentDisplayDate, new Date());
+}
+
+function renderWeekStrip() {
+    const monday = getMonday(currentDisplayDate);
+    const days = Array.from({ length: 7 }, (_, index) => addDays(monday, index));
+    weekStrip.replaceChildren(...days.map(createDayButton));
+}
+
+function getMonday(date) {
+    const weekday = date.getDay();
+    const daysSinceMonday = (weekday + 6) % 7;
+    return addDays(date, -daysSinceMonday);
+}
+
+function createDayButton(date) {
+    const button = document.createElement('button');
+    const selected = isSameDay(date, currentDisplayDate);
+    const today = isSameDay(date, new Date());
+    const weekday = date.toLocaleDateString('it-IT', { weekday: 'short' }).replace('.', '');
+
+    button.type = 'button';
+    button.className = 'week-day';
+    button.classList.toggle('is-selected', selected);
+    button.classList.toggle('is-today', today);
+    button.title = date.toLocaleDateString('it-IT', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long'
+    });
+    button.setAttribute('aria-label', button.title);
+    if (selected) button.setAttribute('aria-current', 'date');
+
+    const label = document.createElement('span');
+    label.className = 'week-day-label';
+    label.textContent = weekday;
+
+    const number = document.createElement('span');
+    number.className = 'week-day-number';
+    number.textContent = date.getDate();
+
+    button.append(label, number);
+    button.addEventListener('click', () => selectDate(date));
+    return button;
+}
+
+function createMealCard(meal) {
+    const card = document.createElement('article');
+    card.className = 'meal mt-3 p-3 rounded-3';
+    card.dataset.mealId = meal.meal_id;
+
+    const title = document.createElement('h3');
+    title.className = 'label fw-bold';
+    title.textContent = meal.meal_label_it;
+
+    const description = document.createElement('p');
+    description.className = 'mb-0';
+    description.textContent = meal.item;
+
+    card.append(title, description);
+    return card;
+}
+
+function isSameDay(firstDate, secondDate) {
+    return startOfDay(firstDate).getTime() === startOfDay(secondDate).getTime();
+}
+
+function moveToDay(offset) {
+    selectDate(addDays(currentDisplayDate, offset), offset > 0 ? 'next' : 'previous');
+}
+
+function selectDate(date, direction) {
+    const oldDate = currentDisplayDate;
+    currentDisplayDate = startOfDay(date);
+    const animationDirection = direction ?? (currentDisplayDate > oldDate ? 'next' : 'previous');
+    animateMealPlan(animationDirection);
+    renderPage();
+}
+
+function animateMealPlan(direction) {
+    mealPlanDisplay.classList.remove('slide-next', 'slide-previous');
+    void mealPlanDisplay.offsetWidth;
+    mealPlanDisplay.classList.add(direction === 'next' ? 'slide-next' : 'slide-previous');
+}
+
+async function loadDietPlan() {
+    setLoading(true);
+
     try {
-        const response = await fetch('diet_plan.json'); // Replace with your JSON file's name
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
+        const data = window.DIET_PLAN ?? await fetchDietPlan();
+        validateDietPlan(data);
+        dietPlan = data;
+        statusDisplay.hidden = true;
     } catch (error) {
-        console.error('Error fetching JSON data:', error);
+        console.error('Impossibile caricare il piano alimentare:', error);
+        statusDisplay.textContent = 'Non è stato possibile caricare il piano alimentare. Riprova aggiornando la pagina.';
+        statusDisplay.className = 'alert alert-danger';
+        statusDisplay.hidden = false;
+    } finally {
+        setLoading(false);
+        if (dietPlan) renderPage();
     }
 }
 
-function createMealPlan(calendar, mealPlan) {
+async function fetchDietPlan() {
+    const response = await fetch('diet_plan.json');
+    if (!response.ok) throw new Error(`Errore HTTP ${response.status}`);
+    return response.json();
+}
 
-    const totalWeeks = mealPlan.weeks.length;
-    let mealIndex = 0;
-
-    for (let i = 0; i < calendar.length; i++) {
-        const weekIndex = Math.floor(mealIndex / mealPlan.weeks[0].days.length) % totalWeeks;
-        const dayIndex = mealIndex % mealPlan.weeks[0].days.length;
-
-        const mealPlanDay = mealPlan.weeks[weekIndex].days[dayIndex];
-        calendar[i].mealPlan = mealPlanDay;
-
-        mealIndex++;
+function validateDietPlan(data) {
+    if (!Array.isArray(data?.weeks) || data.weeks.length === 0) {
+        throw new Error('Il piano non contiene settimane valide');
     }
 
-    return calendar;
-
-
-}
-
-
-
-function init() {
-    calendar = createDateArray(startingDate, jsonData);
-    mealPlan = createMealPlan(calendar, jsonData);
-    createPage(current_display_date, mealPlan)
-}
-
-function formatDateToYYYYMMDD(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding 1 to month due to zero-based indexing
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-}
-
-
-
-function createPage(date, plan) {
-    let chosenDay = plan.find((day) => formatDateToYYYYMMDD(day.date) == formatDateToYYYYMMDD(date));
-    date_display.innerText = `${chosenDay.date.toLocaleDateString('it-it', { weekday: "long", year: "numeric", month: "long", day: "numeric" }).toUpperCase()}`
-    brk_display.innerText = `${chosenDay.mealPlan.meals[0].item}`
-    snack_m_display.innerText = `${chosenDay.mealPlan.meals[1].item}`
-    lunch_display.innerText = `${chosenDay.mealPlan.meals[2].item}`
-    snack_a_display.innerText = `${chosenDay.mealPlan.meals[3].item}`
-    dinner_display.innerText = `${chosenDay.mealPlan.meals[4].item}`
-
-}
-
-function previousDay() {
-    current_display_date.setDate(current_display_date.getDate() - 1);
-    if(current_display_date < startingDate) {
-        alert('Non puoi andare piú indietro di cosí')
-        return;
+    const daysPerWeek = data.weeks[0]?.days?.length;
+    if (!daysPerWeek || data.weeks.some((week) => week.days?.length !== daysPerWeek)) {
+        throw new Error('Le settimane non hanno lo stesso numero di giorni');
     }
-    createPage(current_display_date, mealPlan)
 }
-function nextDay() {
-    current_display_date.setDate(current_display_date.getDate() + 1);
-    if(current_display_date > endingDate) {
-        alert('Non puoi andare piú avanti di cosí')
-        return;
+
+function setLoading(isLoading) {
+    previousButton.disabled = isLoading;
+    nextButton.disabled = isLoading;
+    todayButton.disabled = isLoading;
+
+    if (isLoading) {
+        statusDisplay.textContent = 'Caricamento del piano…';
+        statusDisplay.className = 'alert alert-light';
+        statusDisplay.hidden = false;
     }
-    createPage(current_display_date, mealPlan)
 }
 
-function toDay() {
-    today = new Date();
-    current_display_date = today;
-    createPage(current_display_date, mealPlan)
-}
+previousButton.addEventListener('click', () => moveToDay(-1));
+nextButton.addEventListener('click', () => moveToDay(1));
+todayButton.addEventListener('click', () => {
+    selectDate(new Date());
+});
 
-let jsonData = null;
-let calendar = [];
-let mealPlan = [];
+document.addEventListener('keydown', (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || isInteractiveElement(event.target)) return;
 
-const prev_date = document.getElementById('prev-day');
-const next_date = document.getElementById('next-day');
-const today_date = document.getElementById('today');
-const date_display = document.getElementById('date');
-const brk_display = document.getElementById('brk');
-const snack_m_display = document.getElementById('snack_m');
-const lunch_display = document.getElementById('lunch');
-const snack_a_display = document.getElementById('snack_a');
-const dinner_display = document.getElementById('dinner');
-
-let current_display_date;
-let today = new Date();
-current_display_date = today;
-
-const startingDate = new Date('2023-08-28');
-let endingDate;
-
-prev_date.addEventListener('click', previousDay);
-next_date.addEventListener('click', nextDay);
-today_date.addEventListener('click', toDay);
-
-// Load JSON data when the page loads
-
-fetchJsonData().then((data) => {
-    if (data) {
-        jsonData = data;
-        // Initialize the current date and update meals
-        init();
-    } else {
-        alert('Non sono riuscito a caricare la dieta')
+    if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        moveToDay(-1);
+    } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        moveToDay(1);
     }
 });
+
+function isInteractiveElement(element) {
+    return element instanceof HTMLElement && Boolean(element.closest('button, a, input, textarea, select'));
+}
+
+mealPlanDisplay.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    mealPlanDisplay.setPointerCapture(event.pointerId);
+});
+
+mealPlanDisplay.addEventListener('pointermove', (event) => {
+    if (!pointerStart || event.pointerId !== pointerStart.id) return;
+    const horizontalDistance = Math.abs(event.clientX - pointerStart.x);
+    const verticalDistance = Math.abs(event.clientY - pointerStart.y);
+    mealPlanDisplay.classList.toggle('is-dragging', horizontalDistance > 10 && horizontalDistance > verticalDistance);
+});
+
+mealPlanDisplay.addEventListener('pointerup', finishPointerGesture);
+mealPlanDisplay.addEventListener('pointercancel', cancelPointerGesture);
+
+function finishPointerGesture(event) {
+    if (!pointerStart || event.pointerId !== pointerStart.id) return;
+
+    const deltaX = event.clientX - pointerStart.x;
+    const deltaY = event.clientY - pointerStart.y;
+    const isHorizontalSwipe = Math.abs(deltaX) >= 60 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25;
+
+    cancelPointerGesture();
+    if (isHorizontalSwipe) moveToDay(deltaX < 0 ? 1 : -1);
+}
+
+function cancelPointerGesture() {
+    pointerStart = null;
+    mealPlanDisplay.classList.remove('is-dragging');
+}
+
+loadDietPlan();
