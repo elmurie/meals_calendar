@@ -16,9 +16,10 @@
 </head>
 
 <body>
-    <header class="position-sticky top-0 start-0 pt-2">
+    <header class="app-header position-sticky top-0 start-0 pt-2">
         <h1 class="text-center fw-bold" id="app-title">Dieta Simone</h1>
-        <div class="ctas container-sm d-flex justify-content-between">
+        <div class="calendar-panel">
+        <div class="ctas d-flex justify-content-between">
             <div class="lx d-flex gap-3">
                 <button class="btn btn-primary" id="prev-day" type="button" aria-label="Giorno precedente"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
                     height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -37,8 +38,8 @@
             <h2 class="text-center fw-bold" id="date"></h2>
             <p class="text-center mb-0" id="week-number"></p>
         </div>
-        <nav class="week-navigation container-sm" id="week-strip" aria-label="Seleziona un giorno della settimana"></nav>
-        <div class="app-toolbar container-sm" aria-label="Visualizzazione e ricerca">
+        <nav class="week-navigation" id="week-strip" aria-label="Seleziona un giorno della settimana"></nav>
+        <div class="app-toolbar" aria-label="Visualizzazione e ricerca">
             <div class="view-switch" role="group" aria-label="Visualizzazione del piano">
                 <button class="view-switch-button is-active" id="day-view" type="button" aria-pressed="true">Giorno</button>
                 <button class="view-switch-button" id="week-view" type="button" aria-pressed="false">Settimana</button>
@@ -52,8 +53,9 @@
                 </button>
             </div>
         </div>
+        </div>
     </header>
-    <section class="mt-2 mb-5 container-sm">
+    <section class="app-content mt-2 mb-5 container-sm">
         <section class="search-panel" id="search-panel" aria-label="Ricerca nel piano" hidden>
             <label class="form-label fw-bold" for="meal-search">Cerca un alimento o un pasto</label>
             <div class="search-field-row">

@@ -615,3 +615,92 @@ html[data-theme="dark"] {
     .search-toggle,
     .settings-toggle { padding-inline: 8px; font-size: .84rem; }
 }
+
+/* Layout calendario */
+.calendar-panel {
+    overflow: hidden;
+    background: var(--surface);
+}
+
+@media (min-width: 900px) {
+    .app-header {
+        position: relative !important;
+        padding: 16px 20px 24px !important;
+        background: linear-gradient(
+            to bottom,
+            var(--primary) 0,
+            var(--primary) 132px,
+            var(--page-bg) 132px,
+            var(--page-bg) 100%
+        ) !important;
+        box-shadow: none;
+    }
+
+    .app-header h1 {
+        margin: 0 0 10px;
+        font-size: 2rem;
+    }
+
+    .calendar-panel {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: min(900px, calc(100vw - 40px));
+        margin: 0 auto;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 12px 32px rgb(24 39 72 / 16%);
+    }
+
+    .calendar-panel .ctas,
+    .calendar-panel .title {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .calendar-panel .ctas {
+        align-items: center;
+        width: 100%;
+        max-width: none;
+        padding: 16px 18px;
+        background: transparent;
+    }
+
+    .calendar-panel .ctas > .lx {
+        width: auto;
+    }
+
+    .calendar-panel .title {
+        align-self: center;
+        padding: 12px 180px !important;
+        background: transparent;
+        pointer-events: none;
+    }
+
+    .calendar-panel .title h2 {
+        margin: 0;
+        font-size: 1.35rem;
+    }
+
+    .calendar-panel .week-navigation {
+        padding: 8px 18px 12px;
+        border-top: 1px solid var(--border);
+    }
+
+    .calendar-panel .app-toolbar {
+        padding: 10px 18px 14px;
+        border-top: 1px solid var(--border);
+    }
+
+    .app-content.container-sm {
+        max-width: 860px;
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width: 899.98px) {
+    .calendar-panel {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
